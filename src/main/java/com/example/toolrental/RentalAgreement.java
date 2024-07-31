@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.text.NumberFormat;
 import java.util.Locale;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 /**
  * The RentalAgreement class represents the details of a rental agreement between the store and the customer.
@@ -15,11 +17,11 @@ public class RentalAgreement {
     private int discountPercent;
     private LocalDate checkoutDate;
     private LocalDate dueDate;
-    private double dailyRentalCharge;
+    private BigDecimal dailyRentalCharge;  // Usage of BigDecimal instead of double for monetary calculations to ensure precision and accuracy.
     private int chargeDays;
-    private double preDiscountCharge;
-    private double discountAmount;
-    private double finalCharge;
+    private BigDecimal preDiscountCharge;  // Usage of BigDecimal instead of double for monetary calculations to ensure precision and accuracy.
+    private BigDecimal discountAmount;  // Usage of BigDecimal instead of double for monetary calculations to ensure precision and accuracy.
+    private BigDecimal finalCharge;  // Usage of BigDecimal instead of double for monetary calculations to ensure precision and accuracy.
 
     /**
      * Constructor to initialize the rental agreement with the provided tool, rental days, discount percent, and checkout date.
@@ -97,18 +99,18 @@ public class RentalAgreement {
     }
 
     // Calculate the pre-discount charge
-    private double calculatePreDiscountCharge() {
-        return chargeDays * dailyRentalCharge;
+    private BigDecimal calculatePreDiscountCharge() {
+        return dailyRentalCharge.multiply(BigDecimal.valueOf(chargeDays));
     }
 
     // Calculate the discount amount
-    private double calculateDiscountAmount() {
-        return preDiscountCharge * discountPercent / 100.0;
+    private BigDecimal calculateDiscountAmount() {
+        return preDiscountCharge.multiply(BigDecimal.valueOf(discountPercent)).divide(BigDecimal.valueOf(100), 2, RoundingMode.HALF_UP);
     }
 
     // Calculate the final charge after applying the discount
-    private double calculateFinalCharge() {
-        return preDiscountCharge - discountAmount;
+    private BigDecimal calculateFinalCharge() {
+        return preDiscountCharge.subtract(discountAmount).setScale(2, RoundingMode.HALF_UP);
     }
 
     // Print the rental agreement details to the console

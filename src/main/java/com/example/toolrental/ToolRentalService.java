@@ -3,6 +3,7 @@ package com.example.toolrental;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
+import java.math.BigDecimal;
 
 /**
  * The ToolRentalService class provides the functionality to manage tool rentals.
@@ -14,10 +15,10 @@ public class ToolRentalService {
     // Initialize the available tools with their attributes
     public ToolRentalService() {
         tools = new HashMap<>();
-        tools.put("CHNS", new Tool("CHNS", "Chainsaw", "Stihl", 1.49, true, false, true));
-        tools.put("LADW", new Tool("LADW", "Ladder", "Werner", 1.99, true, true, false));
-        tools.put("JAKD", new Tool("JAKD", "Jackhammer", "DeWalt", 2.99, true, false, false));
-        tools.put("JAKR", new Tool("JAKR", "Jackhammer", "Ridgid", 2.99, true, false, false));
+        tools.put("CHNS", new Tool("CHNS", "Chainsaw", "Stihl", new BigDecimal("1.49"), true, false, true));
+        tools.put("LADW", new Tool("LADW", "Ladder", "Werner", new BigDecimal("1.99"), true, true, false));
+        tools.put("JAKD", new Tool("JAKD", "Jackhammer", "DeWalt", new BigDecimal("2.99"), true, false, false));
+        tools.put("JAKR", new Tool("JAKR", "Jackhammer", "Ridgid", new BigDecimal("2.99"), true, false, false));
     }
 
     /**
